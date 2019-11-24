@@ -1,0 +1,6 @@
+# SPDX-FileCopyrightText: ©  Basil Peace
+# SPDX-License-Identifier: Apache-2.0
+/build/
+# IDEA
+/.idea/$PRODUCT_WORKSPACE_FILE$
+/.idea/dbnavigator.xml

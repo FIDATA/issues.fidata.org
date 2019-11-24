@@ -1,0 +1,16 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+# Standard generated files
+Files:
+ terraform/.terraform/*/lock.json
+# IDEA project files should not contain
+# any creative (non-trivial) settings
+ *.iml
+ .idea/*
+Copyright: ©  Basil Peace
+# CAVEAT:
+# While these files are required to build software, they can be regenerated from sources.
+# If the project is licensed under GPL then they won't constitute corresponding source.
+# So, they are dedicated to public domain as much as possible under applicable law.
+# If court of law considers these files as uncopyrightable then there will be no harm
+License: CC0-1.0
