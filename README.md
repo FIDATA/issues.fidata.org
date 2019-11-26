@@ -16,4 +16,3 @@ for installing MantisBT to issues.fidata.org.
 terraform plan
 terraform apply
 ```
-TODO

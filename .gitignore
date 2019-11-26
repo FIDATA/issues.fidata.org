@@ -4,3 +4,12 @@
 # IDEA
 /.idea/$PRODUCT_WORKSPACE_FILE$
 /.idea/dbnavigator.xml
+# Terraform
+/.terraform/terraform.tfstate
+/.terraform/plugins/*/*
+!/.terraform/plugins/*/lock.json
+
+setvars.cmd
+*.zip
+/mantisbt-*/
+/source-integration-*/

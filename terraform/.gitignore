@@ -1,6 +1,0 @@
-# SPDX-FileCopyrightText: ©  Basil Peace
-# SPDX-License-Identifier: Apache-2.0
-# Terraform
-/.terraform/terraform.tfstate
-/.terraform/plugins/*/*
-!/.terraform/plugins/*/lock.json
