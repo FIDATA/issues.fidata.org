@@ -360,13 +360,12 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   # cname_prefix = "org.fidata"
 }
 
-resource "aws_eip" "issues" {
-  instance = aws_elastic_beanstalk_environment.issues.instances[0]
-  vpc = true
+locals {
+  issues_ip = aws_elastic_beanstalk_environment.issues.endpoint_url
 }
 
 output "issues_ip" {
-  value = aws_eip.issues.public_ip
+  value = local.issues_ip
 }
 
 # DNS
@@ -375,6 +374,6 @@ resource "cloudflare_record" "issues" {
   zone_id = data.terraform_remote_state.fidata_org.outputs.fidata_org_zone_id
   name = "issues"
   type = "A"
-  value = aws_eip.issues.public_ip
+  value = local.issues_ip
   proxied = true
 }
