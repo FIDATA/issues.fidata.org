@@ -66,8 +66,8 @@ resource "aws_s3_bucket" "issues" {
 resource "aws_s3_bucket_object" "issues" {
   bucket = aws_s3_bucket.issues.id
   key    = "issues.zip"
-  source = "issues.zip"
-  etag = filemd5("issues.zip")
+  source = "build/issues.zip"
+  etag = filemd5("build/issues.zip")
   storage_class = "ONEZONE_IA"
 }
 

@@ -10,6 +10,3 @@
 !/.terraform/plugins/*/lock.json
 
 setvars.cmd
-*.zip
-/mantisbt-*/
-/source-integration-*/
