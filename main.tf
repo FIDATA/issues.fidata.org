@@ -300,13 +300,13 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_USERNAME"
-    value     = aws_db_instance.issues.username
+    value     = var.db_username
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_PASSWORD"
-    value     = aws_db_instance.issues.password
+    value     = var.db_password
   }
 
   setting {
