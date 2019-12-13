@@ -1,4 +1,4 @@
-REM SPDX-FileCopyrightText: ©  Basil Peace
+REM SPDX-FileCopyrightText: (C)  Basil Peace
 REM SPDX-License-Identifier: Apache-2.0
 mkdir build
 cd build
