@@ -366,12 +366,8 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   # cname_prefix = "org.fidata"
 }
 
-locals {
-  issues_ip = aws_elastic_beanstalk_environment.issues.endpoint_url
-}
-
 output "issues_ip" {
-  value = local.issues_ip
+  value = aws_elastic_beanstalk_environment.issues.endpoint_url
 }
 
 # DNS
@@ -379,7 +375,7 @@ output "issues_ip" {
 resource "cloudflare_record" "issues" {
   zone_id = data.terraform_remote_state.fidata_org.outputs.fidata_org_zone_id
   name = "issues"
-  type = "A"
-  value = local.issues_ip
+  type = "CNAME"
+  value = aws_elastic_beanstalk_environment.issues.cname
   proxied = true
 }
