@@ -192,25 +192,19 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateEnabled"
-    value     = false
+    value     = true
   }
 
   setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateType"
-    value     = "Immutable"
-  }
-
-  setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "MinInstancesInService"
-    value     = 1
+    value     = "Health"
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "DeploymentPolicy"
-    value     = "Immutable"
+    value     = "RollingWithAdditionalBatch"
   }
 
   setting {
@@ -238,18 +232,6 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   }
 
   setting {
-    namespace = "aws:elasticbeanstalk:command"
-    name      = "BatchSizeType"
-    value     = "Fixed"
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:command"
-    name      = "BatchSize"
-    value     = "1"
-  }
-
-  setting {
     namespace = "aws:elasticbeanstalk:managedactions"
     name      = "ManagedActionsEnabled"
     value     = true
@@ -270,7 +252,7 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:elasticbeanstalk:managedactions:platformupdate"
     name      = "InstanceRefreshEnabled"
-    value     = false # TODO
+    value     = true
   }
 
   setting {
