@@ -281,6 +281,12 @@ resource "aws_elastic_beanstalk_environment" "issues" {
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "RDS_ENGINE"
+    value     = aws_db_instance.issues.engine
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_HOSTNAME"
     value     = aws_db_instance.issues.address
   }
