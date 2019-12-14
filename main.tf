@@ -149,12 +149,6 @@ resource "aws_elastic_beanstalk_environment" "issues" {
 
   setting {
     namespace = "aws:ec2:vpc"
-    name      = "AssociatePublicIpAddress"
-    value     = false
-  }
-
-  setting {
-    namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = data.terraform_remote_state.fidata_org.outputs.fidata_subnet_id
   }
