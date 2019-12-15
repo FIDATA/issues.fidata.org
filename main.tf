@@ -71,30 +71,6 @@ resource "aws_s3_bucket_object" "issues" {
   storage_class = "ONEZONE_IA"
 }
 
-# RDS Database
-
-resource "aws_db_instance" "issues" {
-  storage_type         = "gp2"
-  allocated_storage    = 20
-  engine               = "postgres"
-  engine_version       = "11.5"
-  instance_class       = "db.t3.micro"
-  name                 = "bugtracker"
-  username             = var.db_admin_username
-  password             = var.db_admin_password
-  # parameter_group_name = "default.postgres11"
-  port = 5432
-  db_subnet_group_name = data.terraform_remote_state.fidata_org.outputs.fidata_db_subnet_group_name
-  vpc_security_group_ids = [
-    data.terraform_remote_state.fidata_org.outputs.default_security_group_id,
-    data.terraform_remote_state.fidata_org.outputs.ICMP_private_security_group_id,
-    data.terraform_remote_state.fidata_org.outputs.PostgreSQL_private_security_group_id,
-  ]
-  multi_az = false
-  maintenance_window = "Sat:01:00-Sat:03:00"
-  skip_final_snapshot = true # TODO
-}
-
 # EFS for attachments
 
 resource "aws_efs_file_system" "attachments" {
@@ -256,25 +232,25 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_ENGINE"
-    value     = aws_db_instance.issues.engine
+    value     = data.terraform_remote_state.fidata_org.outputs.MySQL_engine
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_HOSTNAME"
-    value     = aws_db_instance.issues.address
+    value     = data.terraform_remote_state.fidata_org.outputs.MySQL_address
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_PORT"
-    value     = aws_db_instance.issues.port
+    value     = data.terraform_remote_state.fidata_org.outputs.MySQL_port
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_DB_NAME"
-    value     = aws_db_instance.issues.name
+    value     = "bugtracker"
   }
 
   setting {
