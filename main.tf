@@ -160,8 +160,6 @@ resource "aws_elastic_beanstalk_environment" "issues" {
       data.terraform_remote_state.fidata_org.outputs.default_security_group_id,
       data.terraform_remote_state.fidata_org.outputs.ICMP_security_group_id,
       data.terraform_remote_state.fidata_org.outputs.HTTP_S_security_group_id,
-      # data.terraform_remote_state.fidata_org.outputs.SSH_private_security_group_id,
-      data.terraform_remote_state.fidata_org.outputs.SSH_security_group_id,
     ])
   }
 
