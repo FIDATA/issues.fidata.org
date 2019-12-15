@@ -267,19 +267,13 @@ resource "aws_elastic_beanstalk_environment" "issues" {
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "REGION"
-    value     = "eu-west-1" # TODO
+    name      = "EFS_DNS_NAME"
+    value     = aws_efs_mount_target.attachments.dns_name
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "FILE_SYSTEM_ID"
-    value     = aws_efs_mount_target.attachments.file_system_id
-  }
-
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "MOUNT_DIRECTORY"
+    name      = "EFS_MOUNT_DIR"
     value     = "/mnt/attachments"
   }
 
