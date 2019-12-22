@@ -66,6 +66,18 @@ resource "aws_s3_bucket_object" "issues" {
   storage_class = "ONEZONE_IA"
 }
 
+# Subnet
+
+data "aws_subnet" "fidata" {
+  id = data.terraform_remote_state.fidata_org.outputs.fidata_subnet_id
+}
+
+# RDS
+
+data "aws_db_instance" "MySQL" {
+  db_instance_identifier = data.terraform_remote_state.fidata_org.outputs.MySQL_db_instance_id
+}
+
 # EFS for attachments
 
 resource "aws_efs_file_system" "attachments" {
@@ -79,7 +91,7 @@ resource "aws_efs_file_system" "attachments" {
 
 resource "aws_efs_mount_target" "attachments" {
   file_system_id = aws_efs_file_system.attachments.id
-  subnet_id      = data.terraform_remote_state.fidata_org.outputs.fidata_subnet_id
+  subnet_id      = data.aws_subnet.fidata.id
   security_groups = [
     data.terraform_remote_state.fidata_org.outputs.default_security_group_id,
     data.terraform_remote_state.fidata_org.outputs.ICMP_private_security_group_id,
@@ -115,13 +127,13 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = data.terraform_remote_state.fidata_org.outputs.fidata_vpc_id
+    value     = data.aws_subnet.fidata.vpc_id
   }
 
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = data.terraform_remote_state.fidata_org.outputs.fidata_subnet_id
+    value     = data.aws_subnet.fidata.id
   }
 
   setting {
@@ -227,19 +239,19 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_ENGINE"
-    value     = data.terraform_remote_state.fidata_org.outputs.MySQL_engine
+    value     = data.aws_db_instance.MySQL.engine
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_HOSTNAME"
-    value     = data.terraform_remote_state.fidata_org.outputs.MySQL_address
+    value     = data.aws_db_instance.MySQL.address
   }
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_PORT"
-    value     = data.terraform_remote_state.fidata_org.outputs.MySQL_port
+    value     = data.aws_db_instance.MySQL.port
   }
 
   setting {
