@@ -274,6 +274,12 @@ resource "aws_elastic_beanstalk_environment" "issues" {
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "RDS_USER_HOSTNAME"
+    value     = "${ cidrhost(data.aws_subnet.fidata.cidr_block, 0) }/${ cidrnetmask(data.aws_subnet.fidata.cidr_block) }"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
     name      = "EFS_DNS_NAME"
     value     = aws_efs_mount_target.attachments.dns_name
   }
