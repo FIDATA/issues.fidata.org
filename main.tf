@@ -49,6 +49,8 @@ data "terraform_remote_state" "fidata_org" {
   }
 }
 
+# Application
+
 resource "aws_s3_bucket" "issues" {
   bucket = "org.fidata.issues"
   versioning {
