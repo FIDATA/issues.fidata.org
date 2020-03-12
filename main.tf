@@ -317,7 +317,7 @@ resource "aws_elastic_beanstalk_environment" "issues" {
   setting {
     namespace = "aws:elasticbeanstalk:container:php:phpini"
     name      = "display_errors"
-    value     = "On" # TODO
+    value     = "Off"
   }
 
   # cname_prefix = "org.fidata"
